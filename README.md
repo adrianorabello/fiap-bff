@@ -33,6 +33,10 @@ Nesta branch, foi configurada uma **Github Action** para realizar o deploy autom
    node src/app.js
    ```
 
+## O que mudou?
+
+[Clique e veja o que foi feito nesta branch](https://github.com/jaisonschmidt/fiap-bff/compare/05-configure-newrelic...06-configure-actions)
+
 ---
 
 ## Parabéns, você chegou ao fim do tutorial!
