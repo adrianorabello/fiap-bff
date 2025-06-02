@@ -1,6 +1,9 @@
 // Importa o pacote dotenv para carregar variáveis de ambiente do arquivo .env
 require('dotenv').config();
 
+// Importa o New Relic para monitoramento de performance e erros
+require('newrelic');
+
 // Importa o framework Express, que facilita a criação de servidores web em Node.js
 const express = require('express');
 
@@ -9,6 +12,9 @@ const rateLimit = require('express-rate-limit');
 
 // Cria uma instância do Express
 const app = express();
+
+// Adiciona um middleware para interpretar requisições com corpo em JSON
+app.use(express.json());
 
 // Importa o pacote cors para permitir requisições de diferentes origens
 const cors = require('cors');
@@ -49,6 +55,9 @@ app.get('/health', (req, res) => {
 
 // Define a porta do servidor, usando a variável de ambiente PORT ou 3000 como padrão
 const PORT = process.env.PORT || 3000;
+
+// Adiciona a configuração para confiar em proxies
+app.set('trust proxy', 1);
 
 // Inicia o servidor e exibe uma mensagem no console indicando em qual porta está rodando
 app.listen(PORT, () => console.log(`BFF rodando na porta ${PORT}`));
