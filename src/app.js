@@ -4,6 +4,9 @@ require('dotenv').config();
 // Importa o framework Express, que facilita a criação de servidores web em Node.js
 const express = require('express');
 
+// Importa o pacote express-rate-limit para limitar o número de requisições a uma rota
+const rateLimit = require('express-rate-limit');
+
 // Cria uma instância do Express
 const app = express();
 
@@ -25,6 +28,16 @@ const corsOptions = {
 
 // Aplica o middleware CORS com as opções definidas acima
 app.use(cors(corsOptions));
+
+// Configura o rate limit para limitar o número de requisições por IP
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 20, // Limite de 20 requisições por IP
+  message: { error: 'Muitas requisições. Tente novamente mais tarde.' },
+});
+
+// Aplica o rate limit globalmente
+app.use(limiter);
 
 // Define a rota '/ask' que utiliza o roteador importado de 'routes/ask.js'
 app.use('/ask', askRoute);

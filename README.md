@@ -1,4 +1,4 @@
-# FIAP BFF – Configuração de CORS
+# FIAP BFF – Configuração de Rate Limit
 
 Este projeto faz parte de um tutorial prático de Backend For Frontend (BFF) utilizando Node.js e Express.
 
@@ -6,28 +6,36 @@ Este projeto faz parte de um tutorial prático de Backend For Frontend (BFF) uti
 
 ## O que foi feito nesta branch?
 
-### 1. Instalação e configuração do CORS
+### 1. Instalação do express-rate-limit
 
-Foi instalado e configurado o pacote **cors** para permitir que a API aceite requisições de diferentes origens, facilitando a integração com frontends hospedados em domínios distintos.
+Foi instalada a dependência **express-rate-limit** para proteger a API contra abusos e ataques de força bruta, limitando o número de requisições que cada IP pode fazer em um determinado período de tempo.
 
-- **O que é CORS?**  
-  CORS (Cross-Origin Resource Sharing) é um mecanismo de segurança dos navegadores que controla como recursos de uma aplicação web podem ser requisitados a partir de outro domínio. Ao configurar o CORS no backend, você define quais origens podem acessar a API, quais métodos HTTP são permitidos e quais cabeçalhos podem ser utilizados, tornando a comunicação entre frontend e backend mais segura e controlada.
+- **O que é express-rate-limit?**  
+  É um middleware para aplicações Express que permite limitar o número de requisições recebidas de um mesmo IP em um intervalo de tempo, ajudando a evitar sobrecarga e uso indevido da API.
 
-- **Como instalar o cors?**
+- **Como instalar o express-rate-limit?**
   ```bash
-  npm install cors
+  npm install express-rate-limit
   ```
 
-- **Como foi configurado?**  
-  O middleware `cors` foi adicionado ao projeto com opções que permitem todas as origens (`origin: '*'`), além de métodos e cabeçalhos específicos:
+### 2. Configuração e uso do rate limit
+
+O rate limit foi configurado para permitir no máximo 20 requisições por IP a cada 15 minutos. Caso o limite seja atingido, a API retorna uma mensagem de erro informando que houve muitas requisições.
+
+- **Como foi configurado?**
   ```js
-  const corsOptions = {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  };
-  app.use(cors(corsOptions));
+  const rateLimit = require('express-rate-limit');
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 20, // Limite de 20 requisições por IP
+    message: { error: 'Muitas requisições. Tente novamente mais tarde.' },
+  });
+
+  app.use(limiter); // Aplica o rate limit globalmente
   ```
+
+Com essa configuração, todas as rotas da aplicação ficam protegidas contra excesso de requisições vindas do mesmo IP.
 
 ---
 
@@ -44,6 +52,7 @@ Foi instalado e configurado o pacote **cors** para permitir que a API aceite req
    ```
 
 ---
+
 ## Próximo passo
 
-[➜ Configurar Rate limit](../../tree/04-configure-rate-limit)
+[➜ Configurar New Relic](../../tree/05-configure-newrelic)
