@@ -41,3 +41,8 @@ Middlewares são funções executadas durante o ciclo de processamento de uma re
    ```
    http://localhost:3000/health
    ```
+
+---
+## Próximo passo
+
+[➜ Integrando com OpenAI](../../tree/02-integrate-with-openai)
