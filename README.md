@@ -1,29 +1,53 @@
-# FIAP BFF
+# FIAP BFF – Integração com OpenAI
 
-Este projeto é um Backend For Frontend (BFF) simples desenvolvido em Node.js utilizando o framework Express.
+Este projeto faz parte de um tutorial prático de Backend For Frontend (BFF) utilizando Node.js e Express. Nesta branch, foram implementadas as seguintes funcionalidades:
 
-## O que a aplicação faz?
+---
 
-Atualmente, a aplicação expõe uma única rota de verificação de saúde (health check):
+## O que foi feito nesta branch?
 
-- **GET `/health`**  
-  Retorna um JSON indicando que o serviço está funcionando corretamente:
-  ```json
-  { "status": "ok" }
+### 1. Criação da rota `/ask` integrando com a OpenAI
+
+Foi criada uma rota chamada `/ask` que recebe perguntas do usuário e retorna respostas geradas pela API da OpenAI. Essa rota serve como ponte entre o frontend e a inteligência artificial da OpenAI.
+
+### 2. Criação de um service para integração com a OpenAI
+
+Para realizar a comunicação com a OpenAI, foi criado um service utilizando o pacote **axios**.
+
+- **O que é o axios?**  
+  Axios é uma biblioteca para fazer requisições HTTP de forma simples e eficiente em aplicações Node.js e no navegador.
+
+- **Como instalar o axios?**
+  ```bash
+  npm install axios
   ```
 
-## O que são middlewares no Node.js?
+### 3. Utilização do dotenv para variáveis de ambiente
 
-Middlewares são funções executadas durante o ciclo de processamento de uma requisição no Express. Eles podem acessar e modificar o objeto de requisição (`req`) e resposta (`res`), além de decidir se a requisição deve continuar para o próximo middleware ou encerrar o ciclo. São utilizados para tarefas como autenticação, tratamento de erros, parsing de dados e muito mais. No exemplo deste projeto, o middleware `express.json()` é utilizado para permitir que o servidor interprete automaticamente requisições com corpo em JSON.
+O projeto utiliza o pacote **dotenv** para gerenciar variáveis sensíveis, como a chave da API da OpenAI, sem expô-las no código-fonte.
 
-- [Documentação oficial do Express](https://expressjs.com/pt-br/)
-- [Sobre middlewares no Express](https://expressjs.com/pt-br/guide/using-middleware.html)
+- **O que é o dotenv?**  
+  Dotenv é uma biblioteca que carrega variáveis de ambiente de um arquivo `.env` para o `process.env` do Node.js, facilitando a configuração de ambientes de desenvolvimento e produção.
 
-## Como funciona?
+- **Como instalar o dotenv?**
+  ```bash
+  npm install dotenv
+  ```
 
-- O servidor Express é inicializado e configurado para aceitar requisições com corpo em JSON.
-- A rota `/health` pode ser utilizada para monitoramento, verificando se o serviço está ativo.
-- O servidor escuta na porta definida pela variável de ambiente `PORT` ou, caso não esteja definida, na porta `3000`.
+### 4. Como gerar uma chave de API na OpenAI
+
+Para utilizar a API da OpenAI, é necessário criar uma chave de API:
+
+1. Acesse o site da [OpenAI](https://platform.openai.com/).
+2. Faça login ou crie uma conta.
+3. No painel, vá até a seção "API Keys" ou "Chaves de API".
+4. Clique em "Create new secret key" para gerar uma nova chave.
+5. Copie a chave gerada e adicione ao arquivo `.env` do projeto:
+   ```
+   OPENAI_API_KEY=sua_chave_aqui
+   ```
+
+---
 
 ## Como executar
 
@@ -32,17 +56,20 @@ Middlewares são funções executadas durante o ciclo de processamento de uma re
    npm install
    ```
 
-2. Inicie a aplicação:
+2. Crie um arquivo `.env` na raiz do projeto e adicione sua chave da OpenAI:
+   ```
+   OPENAI_API_KEY=sua_chave_aqui
+   ```
+
+3. Inicie a aplicação:
    ```bash
    node src/app.js
    ```
 
-3. Acesse a rota de health check:
-   ```
-   http://localhost:3000/health
-   ```
+4. Faça requisições para a rota `/ask` para interagir com a OpenAI.
 
 ---
+
 ## Próximo passo
 
-[➜ Integrando com OpenAI](../../tree/02-integrate-with-openai)
+[➜ Configuração de CORS](../../tree/02-integrate-with-openai)

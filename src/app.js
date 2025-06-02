@@ -1,11 +1,20 @@
+// Importa o pacote dotenv para carregar variáveis de ambiente do arquivo .env
+require('dotenv').config();
+
 // Importa o framework Express, que facilita a criação de servidores web em Node.js
 const express = require('express');
 
 // Cria uma instância do Express
 const app = express();
 
+// Importa o roteador definido em 'routes/ask.js'
+const askRoute = require('./routes/ask');
+
 // Adiciona um middleware para interpretar requisições com corpo em JSON
 app.use(express.json());
+
+// Define a rota '/ask' que utiliza o roteador importado de 'routes/ask.js'
+app.use('/ask', askRoute);
 
 // Define uma rota GET em '/health' que retorna um status 200 e um JSON indicando que o serviço está ok
 app.get('/health', (req, res) => {
