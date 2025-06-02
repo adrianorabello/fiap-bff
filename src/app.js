@@ -7,11 +7,24 @@ const express = require('express');
 // Cria uma instância do Express
 const app = express();
 
+// Importa o pacote cors para permitir requisições de diferentes origens
+const cors = require('cors');
+
 // Importa o roteador definido em 'routes/ask.js'
 const askRoute = require('./routes/ask');
 
 // Adiciona um middleware para interpretar requisições com corpo em JSON
 app.use(express.json());
+
+// Adiciona o middleware cors para permitir requisições de diferentes origens
+const corsOptions = {
+  origin: '*', // Permite todas as origens. Altere para um domínio específico, se necessário.
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+};
+
+// Aplica o middleware CORS com as opções definidas acima
+app.use(cors(corsOptions));
 
 // Define a rota '/ask' que utiliza o roteador importado de 'routes/ask.js'
 app.use('/ask', askRoute);
