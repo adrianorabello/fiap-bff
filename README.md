@@ -12,6 +12,13 @@ Atualmente, a aplicação expõe uma única rota de verificação de saúde (hea
   { "status": "ok" }
   ```
 
+## O que são middlewares no Node.js?
+
+Middlewares são funções executadas durante o ciclo de processamento de uma requisição no Express. Eles podem acessar e modificar o objeto de requisição (`req`) e resposta (`res`), além de decidir se a requisição deve continuar para o próximo middleware ou encerrar o ciclo. São utilizados para tarefas como autenticação, tratamento de erros, parsing de dados e muito mais. No exemplo deste projeto, o middleware `express.json()` é utilizado para permitir que o servidor interprete automaticamente requisições com corpo em JSON.
+
+- [Documentação oficial do Express](https://expressjs.com/pt-br/)
+- [Sobre middlewares no Express](https://expressjs.com/pt-br/guide/using-middleware.html)
+
 ## Como funciona?
 
 - O servidor Express é inicializado e configurado para aceitar requisições com corpo em JSON.
