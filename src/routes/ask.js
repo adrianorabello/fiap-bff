@@ -9,6 +9,11 @@ router.get('/', async (req, res) => {
     res.json(JSON.parse(result.answer));
   } catch (err) {
     // Log customizado para o New Relic
+      console.error('[OpenAI ERROR]',{
+      error: err,
+      endpoint: '/ask',
+    });
+    
     newrelic.noticeError(err, {
       customMessage: 'OpenAiCommunicationError',
       endpoint: '/ask',
