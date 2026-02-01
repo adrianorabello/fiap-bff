@@ -11,7 +11,8 @@ async function askOpenAI() {
     ]
   }, {
     headers: {
-      Authorization: `Bearer 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`
+      Authorization: `Bearer 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`,
+      'Content-Type': 'application/json'
     }
   });
 
