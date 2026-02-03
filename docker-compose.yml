@@ -1,0 +1,14 @@
+services:
+  # O seu Backend (BFF)
+  bff:
+    image: adrianorabello/mba-frontend:latest
+    ports:
+      - "3000:3000" # Mapeia a porta 3000 do container para a 3001 do seu PC
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./.:/app
+      - /app/node_modules # Evita que o volume sobrescreva os pacotes do container
+
