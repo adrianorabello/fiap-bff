@@ -11,7 +11,7 @@ async function askOpenAI() {
     ]
   }, {
     headers: {
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       'Content-Type': 'application/json'
     }
   });
